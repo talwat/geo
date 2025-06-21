@@ -1,0 +1,8 @@
+name: geo
+version: '1.0-SNAPSHOT'
+main: me.talwat.geo.Geo
+api-version: '1.19'
+authors: [ talwat ]
+depend:
+  - squaremap
+description: Nation management plugin designed specifically for Earth servers.
