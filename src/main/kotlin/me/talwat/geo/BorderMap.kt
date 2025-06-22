@@ -16,13 +16,12 @@ internal class Tracer(private val image: BufferedImage) {
         val current = start.clone() as Point
 
         path.moveTo(start.x.toDouble(), start.y.toDouble())
-        var orientation = 0 // Start by moving up
+        var orientation = 0
 
         var first = true
         do {
             var foundNext = false
 
-            // Try to find the next boundary pixel
             for (i in 0..3) {
                 val next = getNextPoint(current, orientation)
                 if (isBlack(this.image, next, target)) {
@@ -37,11 +36,11 @@ internal class Tracer(private val image: BufferedImage) {
             }
 
             if (!foundNext) {
-                break // No next point found, stop the loop
+                break
             }
 
             first = false;
-        } while (first || path.currentPoint != start)
+        } while (first || current != start)
 
         return path
     }
@@ -101,7 +100,7 @@ class BorderMap(private val image: BufferedImage) {
         return shapes
     }
 
-    fun mapToImage(pos: Location): Point2D.Double {
+    fun mapToImage(pos: Location): Point {
         val x = Math.floorDiv(pos.blockX, 16)
         val z = Math.floorDiv(pos.blockZ, 16)
 
@@ -111,7 +110,7 @@ class BorderMap(private val image: BufferedImage) {
         val imgX = x + width / 2
         val imgY = z + height / 2
 
-        return Point2D.Double(imgX.toDouble(), imgY.toDouble())
+        return Point(imgX, imgY)
     }
 
     fun imageToMap(pos: Point2D.Double): xyz.jpenilla.squaremap.api.Point {
@@ -137,7 +136,7 @@ class BorderMap(private val image: BufferedImage) {
 
         return convertToColor(
             image.getRGB(
-                floor(mapToImage.x).toInt(), floor(mapToImage.y).toInt()
+                mapToImage.x, mapToImage.y
             )
         )
     }

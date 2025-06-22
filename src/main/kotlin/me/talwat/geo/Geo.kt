@@ -12,17 +12,17 @@ class Geo : JavaPlugin() {
 
         // TODO: Handle possible exception.
         val image: BufferedImage = ImageIO.read(File(this.dataFolder.path, "borders.png"))
-        val borderMap = BorderMap(image);
+        val borderMap = BorderMap(image)
 
         val layerProvider = setupLayerProvider("Borders", "borders")!!
 
         logger.info("Tracing Shapes...")
-        val shapes = borderMap.traceShapes();
+        val shapes = borderMap.traceShapes()
         logger.info(shapes.entries.count().toString())
 
         for ((i, entry) in shapes.entries.withIndex()) {
-            val color = entry.key;
-            val polygon = areaToPolygon(borderMap, entry.value, logger);
+            val color = entry.key
+            val polygon = areaToPolygon(borderMap, entry.value)
             polygon.markerOptions(
                 polygon.markerOptions()
                     .asBuilder()

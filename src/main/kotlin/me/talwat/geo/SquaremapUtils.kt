@@ -35,7 +35,7 @@ fun setupLayerProvider(label: String, id: String): SimpleLayerProvider? {
     return layerProvider
 }
 
-fun areaToPolygon(map: BorderMap, area: Area, logger: Logger): Polygon {
+fun areaToPolygon(map: BorderMap, area: Area): Polygon {
     val points: MutableList<Point> = ArrayList()
     val iterator: PathIterator = area.getPathIterator(null, 0.5)
 
@@ -47,8 +47,6 @@ fun areaToPolygon(map: BorderMap, area: Area, logger: Logger): Polygon {
         }
         iterator.next()
     }
-
-    logger.info(points.toString())
 
     return Polygon.polygon(points)
 }
